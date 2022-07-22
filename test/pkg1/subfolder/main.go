@@ -1,5 +1,5 @@
 package main
 
-//go:generate go run ../../../
+//go:generate go run ../../../../make-constructor
 func main() {
 }
