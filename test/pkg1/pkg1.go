@@ -1,10 +1,25 @@
 package pkg1
 
 // F ...
-//go:generate go run ../../../make-constructor
 func F(a interface{}) {
 }
 
-// S1 ...
-type S1 struct {
+// Service ...
+//go:generate go run ../../../make-constructor
+type Service struct {
+	Name string
+}
+
+// PostService ...
+//go:generate go run ../../../make-constructor
+type PostService struct {
+	Service
+	Version int
+}
+
+// AgeService ...
+//go:generate go run ../../../make-constructor
+type AgeService struct {
+	Service
+	Age int
 }
