@@ -1,7 +1,17 @@
 package pkg1
 
+import (
+	"fmt"
+	"io"
+	. "os"
+	stringutils "strings"
+)
+
 // F ...
 func F(a interface{}) {
+	s := fmt.Sprintln(a)
+	s = stringutils.ToLower(s)
+	fmt.Println(s)
 }
 
 // Service ...
@@ -21,5 +31,9 @@ type PostService struct {
 //go:generate go run ../../../make-constructor
 type AgeService struct {
 	Service
-	Age int
+	Age      int
+	Writer   io.Writer
+	File     File
+	AA       stringutils.Builder
+	Stringer fmt.Stringer
 }

@@ -28,16 +28,21 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if has {
-			result, err := ParseFile(filename)
-			if err != nil {
-				panic(err)
-			}
-			if len(result) == 0 {
-				continue
-			}
-			fmt.Println(result)
+		if !has {
+			continue
 		}
+		result, imports, err := ParseFile(filename)
+		if err != nil {
+			panic(err)
+		}
+		if len(result) == 0 {
+			continue
+		}
+		code, err := generateCode(pkg.Name, imports, result)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(code)
 	}
 }
 
@@ -94,6 +99,11 @@ type ResultField struct {
 	Type string
 }
 
+type ResultImport struct {
+	Name string
+	Path string
+}
+
 // Result ...
 type Result struct {
 	StructName string
@@ -101,33 +111,46 @@ type Result struct {
 }
 
 // ParseFile ...
-func ParseFile(filename string) ([]Result, error) {
-	ret := []Result{}
+func ParseFile(filename string) ([]Result, []ResultImport, error) {
+	results := []Result{}
+	imports := []ResultImport{}
 	astFile, err := BuildAST(filename)
 	if err != nil {
-		return ret, err
+		return results, imports, err
 	}
 	for _, decl := range astFile.Decls {
 		genDecl, ok := decl.(*ast.GenDecl)
 		if !ok {
 			continue
 		}
-		if genDecl.Tok != token.TYPE {
-			continue
-		}
 
-		needGen := false
-		for _, doc := range genDecl.Doc.List {
-			if IsMakeComment(doc.Text) {
-				needGen = true
-				break
+		if genDecl.Tok == token.TYPE {
+			needGen := false
+			for _, doc := range genDecl.Doc.List {
+				if IsMakeComment(doc.Text) {
+					needGen = true
+					break
+				}
 			}
-		}
-		if !needGen {
-			continue
+			if !needGen {
+				continue
+			}
 		}
 
 		for _, spec := range genDecl.Specs {
+			importSpec, ok := spec.(*ast.ImportSpec)
+			if ok {
+				var name string
+				if importSpec.Name != nil {
+					name = importSpec.Name.Name
+				}
+				imports = append(imports, ResultImport{
+					Name: name,
+					Path: importSpec.Path.Value,
+				})
+				continue
+			}
+
 			typeSpec, ok := spec.(*ast.TypeSpec)
 			if !ok {
 				continue
@@ -148,7 +171,7 @@ func ParseFile(filename string) ([]Result, error) {
 					//  		pkg.Struct,
 					// 		}
 					items := strings.Split(fieldType, ".")
-					fieldName = items[len(items) - 1]
+					fieldName = items[len(items)-1]
 					// handle pointer cases just like this:
 					// 		type Foo struct {
 					//  		*pkg.Struct,
@@ -160,11 +183,11 @@ func ParseFile(filename string) ([]Result, error) {
 					Name: fieldName,
 				})
 			}
-			ret = append(ret, Result{
+			results = append(results, Result{
 				StructName: typeSpec.Name.Name,
 				Fields:     resultFields,
 			})
 		}
 	}
-	return ret, nil
+	return results, imports, nil
 }
