@@ -7,6 +7,7 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/iancoleman/strcase"
 	"golang.org/x/tools/imports"
 )
 
@@ -44,18 +45,18 @@ func generateCode(pkgName string, importResuts []ResultImport, results []Result)
 		"PkgName":     pkgName,
 		"Imports":     importResuts,
 		"Constructor": []o{},
-		"Time": time.Now().Local().Format(time.RFC3339),
+		"Time":        time.Now().Local().Format(time.RFC3339),
 	}
 	constructors := []o{}
 	for _, result := range results {
 		params := []string{}
 		fields := []string{}
 		for _, field := range result.Fields {
-			params = append(params, fmt.Sprintf("%v %v", field.Name, field.Type))
-			fields = append(fields, fmt.Sprintf("%v: %v,", field.Name, field.Name))
+			params = append(params, fmt.Sprintf("%v %v", toLowerCamel(field.Name), field.Type))
+			fields = append(fields, fmt.Sprintf("%v: %v,", field.Name, toLowerCamel(field.Name)))
 		}
 		constructors = append(constructors, o{
-			"Name":   "New" + result.StructName,
+			"Name":   "New" + strcase.ToCamel(result.StructName),
 			"Struct": result.StructName,
 			"Params": strings.Join(params, ", "),
 			"Fields": strings.Join(fields, "\n"),
