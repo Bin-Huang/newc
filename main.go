@@ -24,7 +24,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(pkg.Name, pkg.GoFiles)
 	for _, filename := range pkg.GoFiles {
 		has, err := IncludeMakeMark(filename)
 		if err != nil {
