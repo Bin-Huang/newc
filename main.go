@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"go/ast"
@@ -42,7 +44,12 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(code)
+		ext := filepath.Ext(filename)
+		genFilename := strings.TrimRight(filename, ext) + "_gen.go"
+		err = ioutil.WriteFile(genFilename, []byte(code), 0644)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
