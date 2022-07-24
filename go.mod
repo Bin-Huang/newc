@@ -1,4 +1,4 @@
-module github.com/Bin-Huang/constructor
+module github.com/Bin-Huang/make-constructor
 
 go 1.18
 
