@@ -105,6 +105,7 @@ type ResultField struct {
 	Type string
 }
 
+// ResultImport ...
 type ResultImport struct {
 	Name string
 	Path string

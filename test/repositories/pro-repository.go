@@ -1,5 +1,6 @@
 package repositories
 
+// ProRepository a repository for example
 //go:generate go run github.com/Bin-Huang/make-constructor@v0.1.0
 type ProRepository struct {
 	db        *database

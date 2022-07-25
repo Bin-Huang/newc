@@ -15,7 +15,6 @@ For example:
 ```go
 // user_servie.go
 
-// UserService just a user service for example
 //go:generate go run github.com/Bin-Huang/make-constructor@v0.1.0
 type UserService struct {
 	baseService
