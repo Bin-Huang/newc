@@ -58,3 +58,11 @@ type UserService struct {
 	proRepository  *repositories.ProRepository
 }
 ```
+
+## Features & Motivation
+
+**It generate the constructor for a struct**. If you have a huge codebase, you will enjoy it.
+
+**It take care of the generated code**. Don't worry about the imports, variable naming and code style in the generated code.
+
+**It dont't need manual installation and dependency**. It works anywhere there is a GO runtime and network, which means it don't broke the work of other people who don't have installed.
