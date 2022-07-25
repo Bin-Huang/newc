@@ -61,8 +61,17 @@ type UserService struct {
 
 ## Features & Motivation
 
-**It generate the constructor for a struct**. If you have a huge codebase, you will enjoy it.
+**It makes your code easier to write and maintain**.
 
-**It take care of the generated code**. Don't worry about the imports, variable naming and code style in the generated code.
+Writing and updating constructor code for many structs can be laborious and error-prone, especially if you have a huge codebase. These should be handed over to automatic tools like this tool.
 
-**It dont't need manual installation and dependency**. It works anywhere there is a GO runtime and network, which means it don't broke the work of other people who don't have installed.
+And it also works well with these dependency injection tool like [`wire`](https://github.com/google/wire). That is to say, if you use `wire` in your project, you may need this tool very much.
+
+
+**It take care of the generated code**.
+
+Don't worry about the imports, variable naming and code style in the generated code.
+
+**It dont't need manual installation and other dependency**.
+
+It works anywhere there is a GO runtime and network, which means it don't broke the work of other people who don't have installed this tool in collaboration.
