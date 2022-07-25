@@ -51,7 +51,7 @@ go get -u github.com/Bin-Huang/make-constructor
 Now you can use it like this:
 
 ```go
-//go:generate go run make-constructor
+//go:generate make-constructor
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
