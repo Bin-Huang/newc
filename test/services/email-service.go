@@ -7,7 +7,7 @@ import (
 )
 
 // EmailService email service for example
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.3.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.4.0
 type EmailService struct {
 	baseService
 	userRepository *repositories.UserRepository
