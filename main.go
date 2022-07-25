@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"go/ast"
 	"go/types"
@@ -25,6 +26,14 @@ func main() {
 		panic(err)
 	}
 	for _, filename := range pkg.GoFiles {
+		ext := filepath.Ext(filename)
+		genFilename := strings.TrimRight(filename, ext) + "_gen.go"
+
+		// skip if gnerated recently
+		if isGeneratedRecently(genFilename) {
+			continue
+		}
+
 		has, err := IncludeMakeMark(filename)
 		if err != nil {
 			panic(err)
@@ -43,8 +52,6 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		ext := filepath.Ext(filename)
-		genFilename := strings.TrimRight(filename, ext) + "_gen.go"
 		err = ioutil.WriteFile(genFilename, []byte(code), 0644)
 		if err != nil {
 			panic(err)
@@ -198,4 +205,12 @@ func ParseFile(filename string) ([]Result, []ResultImport, error) {
 		}
 	}
 	return results, imports, nil
+}
+
+func isGeneratedRecently(genFilename string) bool {
+	stat, err := os.Stat(genFilename)
+	if err != nil {
+		return false
+	}
+	return time.Now().Sub(stat.ModTime()) < 5*time.Second
 }
