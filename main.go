@@ -49,6 +49,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		fmt.Printf("make-constructor: %v: wrote %v\n", pkg.PkgPath, genFilename)
 	}
 }
 

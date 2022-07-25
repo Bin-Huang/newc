@@ -7,7 +7,7 @@ import (
 )
 
 // UserService a user service for example
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.1.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.2.0
 type UserService struct {
 	baseService
 
