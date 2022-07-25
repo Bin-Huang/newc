@@ -1,6 +1,6 @@
 package repositories
 
-//go:generate go run ../../../make-constructor
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.1.0
 type ProRepository struct {
 	db        *database
 	TableName string
