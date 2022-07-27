@@ -13,8 +13,6 @@ It don't need a manual installation. Just add this comment line to the struct yo
 For example:
 
 ```go
-// constructor_gen.go
-
 //go:generate go run github.com/Bin-Huang/make-constructor@v0.5.0
 type UserService struct {
 	baseService
@@ -26,7 +24,7 @@ type UserService struct {
 after `go generate ./...`, `go test` or `go build`, you get this:
 
 ```go
-// user_servie_gen.go
+// constructor_gen.go
 
 // NewUserService Create a new UserService
 func NewUserService(baseService baseService, userRepository *repositories.UserRepository, proRepository *repositories.ProRepository) *UserService {
