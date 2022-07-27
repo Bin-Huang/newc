@@ -1,5 +1,7 @@
 # make-constructor
 
+Doc: **English** | [中文](README_zh.md)
+
 A command-line tool to generate constructor code for a struct. It don't need manual installation, just add a comment line to the struct then it works.
 
 ## How to use?
@@ -72,4 +74,4 @@ Don't worry about the imports, variable naming and code style in the generated c
 
 **It dont't need manual installation and other dependency**.
 
-It works anywhere there is a GO runtime and network, which means it don't broke the work of other people who don't have installed this tool in collaboration.
+It works anywhere there is a GO runtime and network. It don't broke the work of other people who don't have installed this tool in collaboration.
