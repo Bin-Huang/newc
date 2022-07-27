@@ -1,7 +1,7 @@
 package services
 
 // baseService the base service for example
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.4.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.5.0
 type baseService struct {
 	debugLevel int
 }

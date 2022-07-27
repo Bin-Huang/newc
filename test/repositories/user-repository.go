@@ -1,7 +1,7 @@
 package repositories
 
 // UserRepository the user repository for example
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.4.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.5.0
 type UserRepository struct {
 	db        *database
 	TableName string
