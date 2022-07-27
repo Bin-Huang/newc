@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -25,15 +24,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	// skip if generated recently
+	genFilename := "./constructor_gen.go"
+	if isGeneratedRecently(genFilename) {
+		return
+	}
+	allImports := []ResultImport{}
+	allResults := []Result{}
 	for _, filename := range pkg.GoFiles {
-		ext := filepath.Ext(filename)
-		genFilename := strings.TrimRight(filename, ext) + "_gen.go"
-
-		// skip if gnerated recently
-		if isGeneratedRecently(genFilename) {
-			continue
-		}
-
 		has, err := IncludeMakeMark(filename)
 		if err != nil {
 			panic(err)
@@ -41,23 +39,25 @@ func main() {
 		if !has {
 			continue
 		}
-		result, imports, err := ParseFile(filename)
+		results, imports, err := ParseFile(filename)
 		if err != nil {
 			panic(err)
 		}
-		if len(result) == 0 {
+		if len(results) == 0 {
 			continue
 		}
-		code, err := generateCode(pkg.Name, imports, result)
-		if err != nil {
-			panic(err)
-		}
-		err = ioutil.WriteFile(genFilename, []byte(code), 0644)
-		if err != nil {
-			panic(err)
-		}
-		fmt.Printf("make-constructor: %v: wrote %v\n", pkg.PkgPath, genFilename)
+		allImports = append(allImports, imports...)
+		allResults = append(allResults, results...)
 	}
+	code, err := generateCode(pkg.Name, allImports, allResults)
+	if err != nil {
+		panic(err)
+	}
+	err = ioutil.WriteFile(genFilename, []byte(code), 0644)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("make-constructor: %v: wrote %v\n", pkg.PkgPath, genFilename)
 }
 
 // GetPackageInfo get the Go package information in the dir

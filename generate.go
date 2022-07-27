@@ -35,6 +35,10 @@ func {{.Name}}({{.Params}}) *{{.Struct}} {
 `
 
 func generateCode(pkgName string, importResuts []ResultImport, results []Result) (string, error) {
+	// remove duplicate imports
+	importResuts = UniqueImports(importResuts)
+
+	// generate code with template
 	t, err := template.New("").Parse(templ)
 	if err != nil {
 		return "", err
@@ -60,12 +64,13 @@ func generateCode(pkgName string, importResuts []ResultImport, results []Result)
 		})
 	}
 	data["Constructors"] = constructors
-
 	var buffer bytes.Buffer
 	err = t.Execute(&buffer, data)
 	if err != nil {
 		return "", err
 	}
+
+	// format code
 	buf, err := FormatSource(buffer.Bytes())
 	if err != nil {
 		return "", err
@@ -81,6 +86,20 @@ func FormatSource(source []byte) ([]byte, error) {
 		TabIndent:  true,
 		TabWidth:   8,
 	})
+}
+
+// UniqueImports remove duplicate imports, return unqiue imports
+func UniqueImports(imports []ResultImport) []ResultImport {
+	hash := map[string]ResultImport{}
+	for _, importInfo := range imports {
+		key := fmt.Sprintf("%v|%v", importInfo.Name, importInfo.Path)
+		hash[key] = importInfo
+	}
+	ret := []ResultImport{}
+	for _, importInfo := range hash {
+		ret = append(ret, importInfo)
+	}
+	return ret
 }
 
 type o map[string]interface{}
