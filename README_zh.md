@@ -11,13 +11,13 @@ Doc: [English](README.md) | **中文**
 它的使用方式非常简单，不用专门手动安装，只需要在结构体添加下面这行代码注释就能工作。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.5.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.0
 ```
 
 举个例子：
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.5.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.0
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
