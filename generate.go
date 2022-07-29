@@ -70,7 +70,6 @@ func generateCode(pkgName string, importResuts []ResultImport, results []Result)
 
 // FormatSource ...
 func FormatSource(source []byte) ([]byte, error) {
-	fmt.Println(string(source))
 	return imports.Process("", source, &imports.Options{
 		AllErrors:  true,
 		Comments:   true,
