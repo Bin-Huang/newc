@@ -85,6 +85,7 @@ func FormatSource(source []byte) ([]byte, error) {
 		Comments:   true,
 		TabIndent:  true,
 		TabWidth:   8,
+		Fragment:  true,
 	})
 }
 
