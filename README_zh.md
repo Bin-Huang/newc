@@ -79,6 +79,8 @@ type UserService struct {
 
 ## 赞赏
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/benn)
+
 ![](./doc/donate.png)
 
 ## License

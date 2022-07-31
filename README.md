@@ -80,6 +80,8 @@ It works anywhere there is a GO runtime and network. It don't broke the work of 
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/benn)
 
+![](./doc/donate.png)
+
 ## License
 
 MIT
