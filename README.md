@@ -75,3 +75,11 @@ Don't worry about the imports, variable naming and code style in the generated c
 **It dont't need manual installation and other dependency**.
 
 It works anywhere there is a GO runtime and network. It don't broke the work of other people who don't have installed this tool in collaboration.
+
+## Sponsoring
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/benn)
+
+## License
+
+MIT
