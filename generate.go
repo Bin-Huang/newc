@@ -71,10 +71,10 @@ func generateCode(pkgName string, importResuts []ResultImport, results []Result)
 // FormatSource ...
 func FormatSource(source []byte) ([]byte, error) {
 	return imports.Process("", source, &imports.Options{
-		AllErrors:  true,
-		Comments:   true,
-		TabIndent:  true,
-		TabWidth:   8,
+		AllErrors: true,
+		Comments:  true,
+		TabIndent: true,
+		TabWidth:  8,
 		Fragment:  true,
 	})
 }

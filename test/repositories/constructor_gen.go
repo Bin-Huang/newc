@@ -2,7 +2,11 @@
 
 package repositories
 
-import "time"
+import (
+	"time"
+
+	"github.com/Bin-Huang/make-constructor/test/config"
+)
 
 // NewDatabase Create a new database
 func NewDatabase(dsn string, timeout time.Duration, debug bool) *database {
@@ -14,8 +18,9 @@ func NewDatabase(dsn string, timeout time.Duration, debug bool) *database {
 }
 
 // NewProRepository Create a new ProRepository
-func NewProRepository(db *database, tableName string, version int) *ProRepository {
+func NewProRepository(conf config.Config, db *database, tableName string, version int) *ProRepository {
 	return &ProRepository{
+		conf:      conf,
 		db:        db,
 		TableName: tableName,
 		version:   version,
@@ -23,8 +28,9 @@ func NewProRepository(db *database, tableName string, version int) *ProRepositor
 }
 
 // NewUserRepository Create a new UserRepository
-func NewUserRepository(db *database, tableName string) *UserRepository {
+func NewUserRepository(conf *config.Config, db *database, tableName string) *UserRepository {
 	return &UserRepository{
+		conf:      conf,
 		db:        db,
 		TableName: tableName,
 	}
