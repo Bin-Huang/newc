@@ -3,7 +3,7 @@ package repositories
 import "time"
 
 // database the internal database client for example
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.0
+//go:generate go run ../../../make-constructor
 type database struct {
 	DSN     string
 	Timeout time.Duration

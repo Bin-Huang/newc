@@ -2,9 +2,7 @@
 
 package repositories
 
-import (
-	"time"
-)
+import "time"
 
 // NewDatabase Create a new database
 func NewDatabase(dsn string, timeout time.Duration, debug bool) *database {
