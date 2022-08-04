@@ -3,9 +3,9 @@
 package services
 
 import (
-	"github.com/Bin-Huang/make-constructor/test/repositories"
-
 	"log"
+
+	"github.com/Bin-Huang/make-constructor/test/repositories"
 )
 
 // NewBaseService Create a new baseService

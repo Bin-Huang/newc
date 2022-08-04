@@ -98,6 +98,11 @@ func IsMakeComment(s string) bool {
 	return strings.HasPrefix(s, "//go:generate") && strings.Contains(s, "make-constructor")
 }
 
+// IsInitModeEnable check if this struct enable the init mode
+func IsInitModeEnable(s string) bool {
+	return strings.Contains(s, "init")
+}
+
 // BuildAST ...
 func BuildAST(filename string) (*ast.File, error) {
 	astFile, err := parser.ParseFile(fset, filename, nil, parser.ParseComments)
@@ -122,6 +127,7 @@ type ResultImport struct {
 // Result ...
 type Result struct {
 	StructName string
+	Init       bool
 	Fields     []ResultField
 }
 
@@ -139,11 +145,13 @@ func ParseFile(filename string) ([]Result, []ResultImport, error) {
 			continue
 		}
 
+		var initMode bool
 		if genDecl.Tok == token.TYPE {
 			needGen := false
 			for _, doc := range genDecl.Doc.List {
 				if IsMakeComment(doc.Text) {
 					needGen = true
+					initMode = IsInitModeEnable(doc.Text)
 					break
 				}
 			}
@@ -201,6 +209,7 @@ func ParseFile(filename string) ([]Result, []ResultImport, error) {
 			results = append(results, Result{
 				StructName: typeSpec.Name.Name,
 				Fields:     resultFields,
+				Init:       initMode,
 			})
 		}
 	}

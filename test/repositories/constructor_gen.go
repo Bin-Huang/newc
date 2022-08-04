@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/Bin-Huang/make-constructor/test/config"
-
 	config2 "github.com/Bin-Huang/make-constructor/test/config2"
 )
 
@@ -31,9 +30,11 @@ func NewProRepository(conf config.Config, db *database, tableName string, versio
 
 // NewUserRepository Create a new UserRepository
 func NewUserRepository(conf *config2.Config, db *database, tableName string) *UserRepository {
-	return &UserRepository{
+	s := &UserRepository{
 		conf:      conf,
 		db:        db,
 		TableName: tableName,
 	}
+	s.init()
+	return s
 }

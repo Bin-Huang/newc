@@ -7,11 +7,15 @@ import (
 )
 
 // UserRepository the user repository for example
-//go:generate go run ../../../make-constructor
+//go:generate go run ../../../make-constructor --init
 type UserRepository struct {
 	conf      *config2.Config
 	db        *database
 	TableName string
+}
+
+func (r *UserRepository) init() {
+	r.TableName = "foo"
 }
 
 // FindByID find something by id
