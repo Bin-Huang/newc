@@ -2,11 +2,11 @@
 
 Doc: **English** | [中文](README_zh.md)
 
-A command-line tool to generate constructor code for a struct. It don't need manual installation, just add a comment line to the struct then it works.
+A command-line tool to generate constructor code for a struct. It doesn't need manual installation, just add a comment line to the struct then it works.
 
 ## How to use?
 
-It don't need a manual installation. Just add this comment line to the struct you want to generate a constructor.
+It doesn't need a manual installation. Just add this comment line to the struct you want to generate a constructor.
 
 ```go
 //go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
@@ -42,7 +42,7 @@ See [more examples here](https://github.com/Bin-Huang/make-constructor/tree/mast
 
 ## Can it be installed locally?
 
-Actually Go will automatically installs it locally, but you can also install manually. 
+Go will automatically install it locally, but you can also install it manually. 
 
 ```go
 go get -u github.com/Bin-Huang/make-constructor
@@ -105,16 +105,16 @@ Some suggestions:
 
 Writing and updating constructor code for many structs can be laborious and error-prone, especially if you have a huge codebase. These should be handed over to automatic tools like this tool.
 
-And it also works well with these dependency injection tool like [`wire`](https://github.com/google/wire). That is to say, if you use `wire` in your project, you may need this tool very much.
+And it also works well with these dependency injection tools like [`wire`](https://github.com/google/wire). That is to say, if you use `wire` in your project, you may need this tool very much.
 
 
-**It take care of the generated code**.
+**It takes care of the generated code**.
 
-Don't worry about the imports, variable naming and code style in the generated code.
+Don't worry about the imports, variable naming, and code style in the generated code.
 
-**It dont't need manual installation and other dependency**.
+**It doesn't need manual installation and another dependency**.
 
-It works anywhere there is a GO runtime and network. It don't broke the work of other people who don't have installed this tool in collaboration.
+It works anywhere there is a GO runtime and network. It doesn't break the work of other people who don't have installed this tool in collaboration.
 
 ## Sponsoring
 
