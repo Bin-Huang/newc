@@ -9,13 +9,13 @@ A command-line tool to generate constructor code for a struct. It don't need man
 It don't need a manual installation. Just add this comment line to the struct you want to generate a constructor.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.1
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
 ```
 
 For example:
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.1
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -23,7 +23,7 @@ type UserService struct {
 }
 ```
 
-after `go generate ./...`, `go test` or `go build`, you get this:
+After `go generate ./...` you will get this:
 
 ```go
 // constructor_gen.go
@@ -58,6 +58,46 @@ type UserService struct {
 	proRepository  *repositories.ProRepository
 }
 ```
+
+## Wanna initialize something in the constructor?
+
+1. Add `--init` parameter
+2. Write an `init` method for the struct
+
+```go
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0 --init
+type Controller struct {
+	logger *zap.Logger
+    debug  bool
+}
+
+func (c *Controller) init() {
+	c.logger = c.logger.With(zap.String("tag", "this-special-controller"))
+    c.debug = true
+}
+```
+
+Generated code:
+
+```go
+// constructor_gen.go
+
+// NewController Create a new Controller
+func NewController(logger *zap.Logger, debug bool) *Controller {
+	s := &Controller{
+        logger: logger,
+        debug:  debug,
+	}
+	s.init()
+	return s
+}
+```
+
+## If you think the "magic comment" is too long...
+
+Some suggestions:
+1. Add a code snippest in your editor/IDE for the tool (suggested)
+2. [Install this tool manually](#can-it-be-installed-locally)
 
 ## Features & Motivation
 

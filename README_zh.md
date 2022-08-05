@@ -11,13 +11,13 @@ Doc: [English](README.md) | **中文**
 它的使用方式非常简单，不用专门手动安装，只需要在结构体添加下面这行代码注释就能工作。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.1
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
 ```
 
 举个例子：
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.6.1
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -60,6 +60,47 @@ type UserService struct {
 	proRepository  *repositories.ProRepository
 }
 ```
+
+## 想在构造时做些初始化?
+
+1. 加上 `--init` 参数
+2. 为结构体实现一个 `init` 方法
+
+```go
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0 --init
+type Controller struct {
+	logger *zap.Logger
+    debug  bool
+}
+
+func (c *Controller) init() {
+	c.logger = c.logger.With(zap.String("tag", "this-special-controller"))
+    c.debug = true
+}
+```
+
+生成代码：
+
+```go
+// constructor_gen.go
+
+// NewController Create a new Controller
+func NewController(logger *zap.Logger, debug bool) *Controller {
+	s := &Controller{
+        logger: logger,
+        debug:  debug,
+	}
+	s.init()
+	return s
+}
+```
+
+## 如果你觉得这条注释太长……
+
+一些建议：
+
+1. (推荐）把它加进你的编辑器/IDE的快捷代码片段（code snippest）里
+2. 手动安装这个工具
 
 ## 功能特性与设计理念
 
