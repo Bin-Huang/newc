@@ -6,7 +6,7 @@ A command-line tool to generate constructor code for a struct. It doesn't need m
 
 ## How to use?
 
-It doesn't need a manual installation. Just add this comment line to the struct you want to generate a constructor.
+Just add this comment line to the struct you want to generate a constructor. It doesn't need a manual installation.
 
 ```go
 //go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
