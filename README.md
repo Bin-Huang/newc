@@ -101,18 +101,18 @@ Some suggestions:
 
 ## Features & Motivation
 
-**It makes your code easier to write and maintain**.
+**1. It makes your code easier to write and maintain**.
 
 Writing and updating constructor code for many structs can be laborious and error-prone, especially if you have a huge codebase. These should be handed over to automatic tools like this tool.
 
 And it also works well with these dependency injection tools like [`wire`](https://github.com/google/wire). That is to say, if you use `wire` in your project, you may need this tool very much.
 
 
-**It takes care of the generated code**.
+**2. It takes care of the generated code**.
 
 Don't worry about the imports, variable naming, and code style in the generated code.
 
-**It doesn't need manual installation and another dependency**.
+**3. It doesn't need manual installation and another dependency**.
 
 It works anywhere there is a GO runtime and network. It doesn't break the work of other people who don't have installed this tool in collaboration.
 
