@@ -68,12 +68,12 @@ type UserService struct {
 //go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0 --init
 type Controller struct {
 	logger *zap.Logger
-    debug  bool
+	debug  bool
 }
 
 func (c *Controller) init() {
 	c.logger = c.logger.With(zap.String("tag", "this-special-controller"))
-    c.debug = true
+	c.debug = true
 }
 ```
 
@@ -85,8 +85,8 @@ Generated code:
 // NewController Create a new Controller
 func NewController(logger *zap.Logger, debug bool) *Controller {
 	s := &Controller{
-        logger: logger,
-        debug:  debug,
+		logger: logger,
+		debug:  debug,
 	}
 	s.init()
 	return s
