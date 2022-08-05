@@ -42,9 +42,10 @@ func {{.Name}}({{.Params}}) *{{.Struct}} {
 {{ end }}
 `
 
-func generateCode(pkgName string, importResuts []ResultImport, results []Result) (string, error) {
+// GenerateCode generate constructors code
+func GenerateCode(pkgName string, importInfos []ImportInfo, structInfos []StructInfo) (string, error) {
 	// remove duplicate imports
-	importResuts = UniqueImports(importResuts)
+	importInfos = filterUniqueImports(importInfos)
 
 	// generate code with template
 	t, err := template.New("").Parse(templ)
@@ -53,21 +54,21 @@ func generateCode(pkgName string, importResuts []ResultImport, results []Result)
 	}
 	data := o{
 		"PkgName":     pkgName,
-		"Imports":     importResuts,
+		"Imports":     importInfos,
 		"Constructor": []o{},
 	}
 	constructors := []o{}
-	for _, result := range results {
+	for _, structInfo := range structInfos {
 		params := []string{}
 		fields := []string{}
-		for _, field := range result.Fields {
+		for _, field := range structInfo.Fields {
 			params = append(params, fmt.Sprintf("%v %v", toLowerCamel(field.Name), field.Type))
 			fields = append(fields, fmt.Sprintf("%v: %v,", field.Name, toLowerCamel(field.Name)))
 		}
 		constructors = append(constructors, o{
-			"Name":   "New" + strcase.ToCamel(result.StructName),
-			"Struct": result.StructName,
-			"Init":   result.Init,
+			"Name":   "New" + strcase.ToCamel(structInfo.StructName),
+			"Struct": structInfo.StructName,
+			"Init":   structInfo.Init,
 			"Params": strings.Join(params, ", "),
 			"Fields": strings.Join(fields, "\n"),
 		})
@@ -80,15 +81,14 @@ func generateCode(pkgName string, importResuts []ResultImport, results []Result)
 	}
 
 	// format code
-	buf, err := FormatSource(buffer.Bytes())
+	buf, err := formatCode(buffer.Bytes())
 	if err != nil {
 		return "", err
 	}
 	return string(buf), nil
 }
 
-// FormatSource ...
-func FormatSource(source []byte) ([]byte, error) {
+func formatCode(source []byte) ([]byte, error) {
 	output, err := imports.Process("", source, &imports.Options{
 		AllErrors: true,
 		Comments:  true,
@@ -102,17 +102,17 @@ func FormatSource(source []byte) ([]byte, error) {
 	if bytes.Equal(source, output) {
 		return output, nil
 	}
-	return FormatSource(output)
+	return formatCode(output)
 }
 
-// UniqueImports remove duplicate imports, return unqiue imports
-func UniqueImports(imports []ResultImport) []ResultImport {
-	hash := map[string]ResultImport{}
+// filterUniqueImports remove duplicate imports, return unqiue imports
+func filterUniqueImports(imports []ImportInfo) []ImportInfo {
+	hash := map[string]ImportInfo{}
 	for _, importInfo := range imports {
 		key := fmt.Sprintf("%v|%v", importInfo.Name, importInfo.Path)
 		hash[key] = importInfo
 	}
-	ret := []ResultImport{}
+	ret := []ImportInfo{}
 	for _, importInfo := range hash {
 		ret = append(ret, importInfo)
 	}
