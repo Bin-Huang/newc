@@ -116,6 +116,8 @@ Don't worry about the imports, variable naming, and code style in the generated 
 
 It works anywhere there is a GO runtime and network. It doesn't break the work of other people who don't have installed this tool in collaboration.
 
+(This tool runs locally, the network is only used to install this tool when necessary)
+
 ## Sponsoring
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/benn)
