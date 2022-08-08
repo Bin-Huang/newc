@@ -93,6 +93,9 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 
 		var initMode bool
 		if genDecl.Tok == token.TYPE {
+			if genDecl.Doc == nil {
+				continue
+			}
 			needGen := false
 			for _, doc := range genDecl.Doc.List {
 				if isMakeComment(doc.Text) {
