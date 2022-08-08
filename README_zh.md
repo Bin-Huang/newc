@@ -11,13 +11,13 @@ Doc: [English](README.md) | **中文**
 它的使用方式非常简单，不用专门手动安装，只需要在结构体添加下面这行代码注释就能工作。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 ```
 
 举个例子：
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -67,7 +67,7 @@ type UserService struct {
 2. 为结构体实现一个 `init` 方法
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0 --init
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1 --init
 type Controller struct {
 	logger *zap.Logger
     debug  bool

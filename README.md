@@ -9,13 +9,13 @@ A command-line tool to generate constructor code for a struct. It doesn't need m
 Just add this comment line to the struct you want to generate a constructor. It doesn't need a manual installation.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 ```
 
 For example:
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -65,7 +65,7 @@ type UserService struct {
 2. Write an `init` method for the struct
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.0 --init
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1 --init
 type Controller struct {
 	logger *zap.Logger
 	debug  bool
