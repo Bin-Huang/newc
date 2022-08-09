@@ -37,6 +37,9 @@ func main() {
 		allImports = append(allImports, imports...)
 		allResults = append(allResults, results...)
 	}
+	if len(allResults) == 0 {
+		return
+	}
 	code, err := GenerateCode(pkg.Name, allImports, allResults)
 	if err != nil {
 		panic(err)
