@@ -22,7 +22,10 @@ func makeConstructor() error {
 		return err
 	}
 	// skip if generated recently
-	genFilename := "./constructor_gen.go"
+	genFilename, err := filepath.Abs("./constructor_gen.go")
+	if err != nil {
+		return err
+	}
 	if isGeneratedRecently(genFilename) {
 		return nil
 	}
@@ -57,11 +60,7 @@ func makeConstructor() error {
 	if err != nil {
 		return err
 	}
-	genFilepath, err := filepath.Abs(genFilename)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("make-constructor: [INFO] wrote %v\n", genFilepath)
+	fmt.Printf("make-constructor: [INFO] wrote %v\n", genFilename)
 	return nil
 }
 
