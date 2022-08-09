@@ -34,14 +34,14 @@ func makeConstructor() error {
 	for _, filename := range pkg.GoFiles {
 		has, err := IncludeMakeMark(filename)
 		if err != nil {
-			panic(err)
+			return err
 		}
 		if !has {
 			continue
 		}
 		results, imports, err := ParseCodeFile(filename)
 		if err != nil {
-			panic(err)
+			return err
 		}
 		if len(results) == 0 {
 			continue
