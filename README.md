@@ -4,7 +4,7 @@ Doc: **English** | [中文](README_zh.md)
 
 ----------
 
-A cli tool to generate constructor code for a struct.
+A cli tool to generate constructor code for a Golang struct.
 
 ## Installation
 
