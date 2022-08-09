@@ -2,20 +2,28 @@
 
 Doc: **English** | [中文](README_zh.md)
 
-A command-line tool to generate constructor code for a struct. It doesn't need manual installation, just add a comment line to the struct then it works.
+----------
 
-## How to use?
+A cli tool to generate constructor code for a struct.
 
-Just add this comment line to the struct you want to generate a constructor. It doesn't need a manual installation.
+## Installation
+
+```bash
+go install github.com/Bin-Huang/make-constructor
+```
+
+## Usage
+
+Add a `go:generate` command line to the struct which you want to generate a constructor.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
+//go:generate make-constructor
 ```
 
 For example:
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
+//go:generate make-constructor
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -23,7 +31,7 @@ type UserService struct {
 }
 ```
 
-After `go generate ./...` you will get this:
+After executing `go generate ./...` the constructor code generated:
 
 ```go
 // constructor_gen.go
@@ -40,18 +48,20 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 
 See [more examples here](https://github.com/Bin-Huang/make-constructor/tree/master/test)
 
-## Can it be installed locally?
+## Usage without manual installation
 
-Go will automatically install it locally, but you can also install it manually. 
+**Recommended for team collaboration**
+
+Without manual installation, just add this comment line to the struct. Go will automatically install this tool if missing.
 
 ```go
-go get -u github.com/Bin-Huang/make-constructor
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 ```
 
-Now you can use it like this:
+For example:
 
 ```go
-//go:generate make-constructor
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -59,20 +69,22 @@ type UserService struct {
 }
 ```
 
-## Wanna initialize something in the constructor?
+This is very useful, especially in teamwork. **It can run without manual installation. It doesn't break the work of other people who don't have installed this tool in collaboration.**
+
+## Call an initializer
 
 1. Add `--init` parameter
 2. Write an `init` method for the struct
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1 --init
+//go:generate make-constructor --init
 type Controller struct {
 	logger *zap.Logger
 	debug  bool
 }
 
 func (c *Controller) init() {
-	c.logger = c.logger.With(zap.String("tag", "this-special-controller"))
+	c.logger = c.logger.With(zap.String("tag", "controller-debugger"))
 	c.debug = true
 }
 ```
@@ -93,11 +105,12 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 }
 ```
 
-## If you think the "magic comment" is too long...
+## If you think the `go:generate` comment is too long...
 
 Some suggestions:
+
 1. Add a code snippest in your editor/IDE for the tool (suggested)
-2. [Install this tool manually](#can-it-be-installed-locally)
+2. ......
 
 ## Features & Motivation
 
@@ -105,18 +118,19 @@ Some suggestions:
 
 Writing and updating constructor code for many structs can be laborious and error-prone, especially if you have a huge codebase. These should be handed over to automatic tools like this tool.
 
-And it also works well with these dependency injection tools like [`wire`](https://github.com/google/wire). That is to say, if you use `wire` in your project, you may need this tool very much.
-
+And it also works well with these dependency injection tools like [`wire`](https://github.com/google/wire). If you use `wire` in your project, you may need this tool very much.
 
 **2. It takes care of the generated code**.
 
 Don't worry about the imports, variable naming, and code style in the generated code.
 
-**3. It doesn't need manual installation and another dependency**.
+**3. It is more suitable for teamwork**.
 
-It works anywhere there is a GO runtime and network. It doesn't break the work of other people who don't have installed this tool in collaboration.
+It doesn't break the work of other people who don't have installed this tool in collaboration. Go will automatically install this tool if missing.
 
-(This tool runs locally, the network is only used to install this tool when necessary)
+```go
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
+```
 
 ## Sponsoring
 

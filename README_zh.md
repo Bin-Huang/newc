@@ -4,20 +4,26 @@ Doc: [English](README.md) | **中文**
 
 ----------
 
-一个自动为 Go 结构体生成类似 `NewXXX` 构造器函数代码的命令行工具。它不需要手动安装，只需要在结构体上加一行代码注释就能工作。
+一个为 Golang 结构体生成构造器函数(`NewXXX`)代码的自动工具。
 
-## 如何使用？
+## 安装
 
-它的使用方式非常简单，不用专门手动安装，只需要在结构体添加下面这行代码注释就能工作。
-
-```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
+```bash
+go install github.com/Bin-Huang/make-constructor
 ```
 
-举个例子：
+## 使用方法
+
+在需要生成构造器的结构体上添加一行 `go:generate` 注释。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
+//go:generate make-constructor
+```
+
+比如这样：
+
+```go
+//go:generate make-constructor
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -25,7 +31,7 @@ type UserService struct {
 }
 ```
 
-当你执行 `go generate ./...`, `go test` 或者 `go build` 后，你就能得到下面生成的代码文件：
+然后只需要执行 `go generate ./...` 就能生成下面这样的构造器代码：
 
 ```go
 // constructor_gen.go
@@ -42,18 +48,20 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 
 这里可以[查看更多例子](https://github.com/Bin-Huang/make-constructor/tree/master/test)
 
-## 它可以本地安装吗？
+## 使用方式2（无需手动安装）
 
-其实如果用上面的方法，Go 会自动帮你本地安装，当然你也可以手动安装：
+**推荐在团队合作中采用**
+
+无需手动安装，只需要给结构体添加下面这行注释就行。Go 会在缺失时自动下载这个工具。
 
 ```go
-go get -u github.com/Bin-Huang/make-constructor
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 ```
 
-然后你就可以这么使用它：
+比如这样：
 
 ```go
-//go:generate make-constructor
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -61,21 +69,23 @@ type UserService struct {
 }
 ```
 
+这个方式非常有用，尤其在团队开发中。**就算其他同事没有安装这个工具，这么做也能正常运行，不会影响到其他人的工作**。
+
 ## 想在构造时做些初始化?
 
 1. 加上 `--init` 参数
 2. 为结构体实现一个 `init` 方法
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1 --init
+//go:generate make-constructor --init
 type Controller struct {
 	logger *zap.Logger
-    debug  bool
+	debug  bool
 }
 
 func (c *Controller) init() {
-	c.logger = c.logger.With(zap.String("tag", "this-special-controller"))
-    c.debug = true
+	c.logger = c.logger.With(zap.String("tag", "controller-debugger"))
+	c.debug = true
 }
 ```
 
@@ -87,8 +97,8 @@ func (c *Controller) init() {
 // NewController Create a new Controller
 func NewController(logger *zap.Logger, debug bool) *Controller {
 	s := &Controller{
-        logger: logger,
-        debug:  debug,
+		logger: logger,
+		debug:  debug,
 	}
 	s.init()
 	return s
@@ -100,7 +110,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 一些建议：
 
 1. (推荐）把它加进你的编辑器/IDE的快捷代码片段（code snippest）里
-2. 手动安装这个工具
+2. ......
 
 ## 功能特性与设计理念
 
@@ -114,11 +124,13 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 
 这个工具在生成代码时会非常小心，会帮你考虑所有代码细节，包括引用依赖、变量命名，甚至还有代码风格。
 
-**3. 它不需要手动安装，也不需要引用其他依赖**.
+**3. 它非常适合团队协同工作**.
 
-只要有 GO 环境和网络的地方，这个工具就能正常工作。你在项目中使用这个工具不会影响到其他同事，就算他们没有安装这个工具，代码的自动生成也不会有任何问题。
+就算其他同事没有安装这个工具，这么做也不会影响到他们的工作。因为 Go 会在必要时自动安装这个工具。
 
-（这个工具运行在本地，网络只用于在必要时下载这个工具）
+```go
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.1
+```
 
 ## 赞赏
 
