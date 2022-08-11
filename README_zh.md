@@ -9,7 +9,7 @@ Doc: [English](README.md) | **中文**
 ## 安装
 
 ```bash
-go install github.com/Bin-Huang/make-constructor
+go install github.com/Bin-Huang/make-constructor@latest
 ```
 
 ## 使用方法

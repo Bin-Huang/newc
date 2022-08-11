@@ -9,7 +9,7 @@ A cli tool to generate constructor code for a Golang struct.
 ## Installation
 
 ```bash
-go install github.com/Bin-Huang/make-constructor
+go install github.com/Bin-Huang/make-constructor@latest
 ```
 
 ## Usage
