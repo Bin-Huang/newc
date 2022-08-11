@@ -55,13 +55,13 @@ See [more examples here](https://github.com/Bin-Huang/make-constructor/tree/mast
 Without manual installation, just add this comment line to the struct. Go will automatically install this tool if missing.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.3
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
 ```
 
 For example:
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.3
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -129,7 +129,7 @@ Don't worry about the imports, variable naming, and code style in the generated 
 It doesn't break the work of other people who don't have installed this tool in collaboration. Go will automatically install this tool if missing.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.3
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
 ```
 
 ## Sponsoring

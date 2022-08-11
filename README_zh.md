@@ -55,13 +55,13 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 无需手动安装，只需要给结构体添加下面这行注释就行。Go 会在缺失时自动下载这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.3
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
 ```
 
 比如这样：
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.3
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -129,7 +129,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 就算其他同事没有安装这个工具，这么做也不会影响到他们的工作。因为 Go 会在必要时自动安装这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.3
+//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
 ```
 
 ## 赞赏

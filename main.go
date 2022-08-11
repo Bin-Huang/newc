@@ -12,6 +12,9 @@ func main() {
 	err := makeConstructor()
 	if err != nil {
 		fmt.Printf("make-constructor: [ERROR] %v\n", err)
+		fmt.Printf("It seems like there is some trouble here. Try this:\n")
+		fmt.Printf("\t1. Check and upgrade this tool (https://github.com/Bin-Huang/make-constructor)\n")
+		fmt.Printf("\t2. Submit an issue on Github (https://github.com/Bin-Huang/make-constructor/issues)\n")
 		os.Exit(1)
 	}
 }
