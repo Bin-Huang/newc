@@ -1,6 +1,6 @@
 # newc
 
-> "**new**-\* **c**onstructor generator"
+> **new**-\* **c**onstructor generator
 
 Doc: **English** | [中文](README_zh.md)
 
