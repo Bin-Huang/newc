@@ -67,7 +67,8 @@ type ImportInfo struct {
 // StructInfo the information of a struct
 type StructInfo struct {
 	StructName string
-	Init       bool
+	InitFlag   bool
+	ValueFlag  bool
 	Fields     []StructField
 }
 
@@ -92,6 +93,7 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 		}
 
 		var initMode bool
+		var valueMode bool
 		if genDecl.Tok == token.TYPE {
 			if genDecl.Doc == nil {
 				continue
@@ -101,6 +103,7 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 				if isMakeComment(doc.Text) {
 					needGen = true
 					initMode = isInitModeEnable(doc.Text)
+					valueMode = isValueModeEnable(doc.Text)
 					break
 				}
 			}
@@ -158,7 +161,8 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 			structs = append(structs, StructInfo{
 				StructName: typeSpec.Name.Name,
 				Fields:     structFields,
-				Init:       initMode,
+				InitFlag:   initMode,
+				ValueFlag:  valueMode,
 			})
 		}
 	}
@@ -168,15 +172,15 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 // isMakeComment ...
 func isMakeComment(s string) bool {
 	s = strings.TrimSpace(s)
-	if !strings.HasPrefix(s, "//go:generate") {
-		return false
-	}
-	s = strings.TrimLeft(s, "//go:generate")
-	s = strings.TrimSpace(s)
-	return strings.HasPrefix(s, "newc ") || strings.Contains(s, "github.com/Bin-Huang/newc")
+	return strings.HasPrefix(s, "//go:generate") && strings.Contains(s, "newc")
 }
 
 // isInitModeEnable check if this struct enable the init mode
 func isInitModeEnable(s string) bool {
 	return strings.Contains(s, "init")
+}
+
+// isValueModeEnable check if this struct enable the value mode
+func isValueModeEnable(s string) bool {
+	return strings.Contains(s, "value")
 }

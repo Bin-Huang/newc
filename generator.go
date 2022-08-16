@@ -26,15 +26,15 @@ import (
 
 {{ range .Constructors }}
 // {{.Name}} Create a new {{.Struct}}
-func {{.Name}}({{.Params}}) *{{.Struct}} {
-	{{ if .Init -}}
-    s := &{{.Struct}} {
+func {{.Name}}({{.Params}}) {{if not .ValueFlag}}*{{end -}} {{.Struct}} {
+	{{ if .InitFlag -}}
+    s := {{if not .ValueFlag}}&{{end -}} {{.Struct}} {
         {{.Fields}}
     }
 	s.init()
 	return s
 	{{ else -}}
-    return &{{.Struct}} {
+    return {{if not .ValueFlag}}&{{end -}} {{.Struct}} {
         {{.Fields}}
     }
 	{{ end -}}
@@ -66,11 +66,12 @@ func GenerateCode(pkgName string, importInfos []ImportInfo, structInfos []Struct
 			fields = append(fields, fmt.Sprintf("%v: %v,", field.Name, toLowerCamel(field.Name)))
 		}
 		constructors = append(constructors, o{
-			"Name":   "New" + strcase.ToCamel(structInfo.StructName),
-			"Struct": structInfo.StructName,
-			"Init":   structInfo.Init,
-			"Params": strings.Join(params, ", "),
-			"Fields": strings.Join(fields, "\n"),
+			"Name":      "New" + strcase.ToCamel(structInfo.StructName),
+			"Struct":    structInfo.StructName,
+			"InitFlag":  structInfo.InitFlag,
+			"ValueFlag": structInfo.ValueFlag,
+			"Params":    strings.Join(params, ", "),
+			"Fields":    strings.Join(fields, "\n"),
 		})
 	}
 	data["Constructors"] = constructors

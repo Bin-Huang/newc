@@ -49,13 +49,13 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 无需手动安装，只需要给结构体添加下面这行注释就行。Go 会在缺失时自动下载这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.1
+//go:generate go run github.com/Bin-Huang/newc@v0.8.2
 ```
 
 比如这样：
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.1
+//go:generate go run github.com/Bin-Huang/newc@v0.8.2
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -64,6 +64,30 @@ type UserService struct {
 ```
 
 这个方式非常有用，尤其在团队开发中。**就算其他同事没有安装这个工具，这么做也能正常运行，不会影响到其他人的工作**。
+
+## 返回结构体的值，而不是引用
+
+使用 `--value` 参数
+
+```go
+//go:generate newc --value
+type Config struct {
+	debug  bool
+}
+```
+
+生成代码：
+
+```go
+// constructor_gen.go
+
+// NewConfig Create a new Config
+func NewConfig(debug bool) Config {
+	return Config{
+		debug:  debug,
+	}
+}
+```
 
 ## 想在构造时做些初始化?
 
@@ -123,7 +147,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 就算其他同事没有安装这个工具，这么做也不会影响到他们的工作。因为 Go 会在必要时自动安装这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.1
+//go:generate go run github.com/Bin-Huang/newc@v0.8.2
 ```
 
 ## 赞赏
