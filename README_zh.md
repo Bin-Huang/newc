@@ -18,12 +18,6 @@ go install github.com/Bin-Huang/newc@latest
 
 ```go
 //go:generate newc
-```
-
-比如这样：
-
-```go
-//go:generate newc
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository

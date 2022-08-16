@@ -18,12 +18,6 @@ Add a `go:generate` command line to the struct which you want to generate a cons
 
 ```go
 //go:generate newc
-```
-
-For example:
-
-```go
-//go:generate newc
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
