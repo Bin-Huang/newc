@@ -173,7 +173,7 @@ func isMakeComment(s string) bool {
 	}
 	s = strings.TrimLeft(s, "//go:generate")
 	s = strings.TrimSpace(s)
-	return strings.HasPrefix(s, "newc ")
+	return strings.HasPrefix(s, "newc ") || strings.Contains(s, "github.com/Bin-Huang/newc")
 }
 
 // isInitModeEnable check if this struct enable the init mode
