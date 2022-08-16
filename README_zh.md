@@ -1,5 +1,7 @@
 # newc
 
+> "**new**-\* **c**onstructor generator"
+
 Doc: [English](README.md) | **中文**
 
 ----------
