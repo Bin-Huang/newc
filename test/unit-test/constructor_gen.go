@@ -33,3 +33,12 @@ func NewStructValueWithInit(debug bool) StructValueWithInit {
 	s.init()
 	return s
 }
+
+// NewSkipeed Create a new Skipeed
+func NewSkipeed(msg string) Skipeed {
+	s := Skipeed{
+		Msg: msg,
+	}
+	s.init()
+	return s
+}

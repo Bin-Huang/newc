@@ -38,3 +38,10 @@ func TestValueInitMode(t *testing.T) {
 		t.Errorf("expected unittest.StructValueWithInit, but got %v", typeName)
 	}
 }
+
+func TestSkipped(t *testing.T) {
+	value := NewSkipeed("msg")
+	if value.Status != 403 {
+		t.Errorf("NewSkipeed should calling init method")
+	}
+}

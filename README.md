@@ -49,13 +49,13 @@ See [more examples here](https://github.com/Bin-Huang/newc/tree/master/test)
 Without manual installation, just add this comment line to the struct. Go will automatically install this tool if missing.
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.2
+//go:generate go run github.com/Bin-Huang/newc@v0.8.3
 ```
 
 For example:
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.2
+//go:generate go run github.com/Bin-Huang/newc@v0.8.3
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -65,7 +65,7 @@ type UserService struct {
 
 This is very useful, especially in teamwork. **It can run without manual installation. It doesn't break the work of other people who don't have installed this tool in collaboration.**
 
-## Return value instead reference
+## How to return value instead reference?
 
 Add `--value` parameter
 
@@ -89,7 +89,7 @@ func NewConfig(debug bool) Config {
 }
 ```
 
-## Call an initializer
+## How to call an initializer in constructor?
 
 1. Add `--init` parameter
 2. Write an `init` method for the struct
@@ -123,6 +123,28 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 }
 ```
 
+## How to ignore some fields when generating constructor code?
+
+Add a tag `newc:"-"` to fields that need to be ignored
+
+```go
+type Forbidden struct {
+	Msg    string
+	Status int    `newc:"-"`
+}
+```
+
+Generated code:
+
+```go
+// NewForbidden Create a new Forbidden
+func NewForbidden(msg string) *Forbidden {
+	return &Forbidden{
+		Msg: msg,
+	}
+}
+```
+
 ## If you think the `go:generate` comment is too long...
 
 Some suggestions:
@@ -147,7 +169,7 @@ Don't worry about the imports, variable naming, and code style in the generated 
 It doesn't break the work of other people who don't have installed this tool in collaboration. Go will automatically install this tool if missing.
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.2
+//go:generate go run github.com/Bin-Huang/newc@v0.8.3
 ```
 
 ## Sponsoring

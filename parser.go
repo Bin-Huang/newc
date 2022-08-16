@@ -74,8 +74,9 @@ type StructInfo struct {
 
 // StructField the information of a struct field
 type StructField struct {
-	Name string
-	Type string
+	Name    string
+	Type    string
+	Skipped bool
 }
 
 // ParseCodeFile parse structs and imports in a code file
@@ -154,8 +155,9 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 					fieldName = strings.TrimPrefix(fieldName, "*")
 				}
 				structFields = append(structFields, StructField{
-					Type: fieldType,
-					Name: fieldName,
+					Type:    fieldType,
+					Name:    fieldName,
+					Skipped: isSkippedField(field),
 				})
 			}
 			structs = append(structs, StructInfo{
@@ -183,4 +185,11 @@ func isInitModeEnable(s string) bool {
 // isValueModeEnable check if this struct enable the value mode
 func isValueModeEnable(s string) bool {
 	return strings.Contains(s, "value")
+}
+
+func isSkippedField(field *ast.Field) bool {
+	if field.Tag == nil {
+		return false
+	}
+	return strings.Contains(field.Tag.Value, `newc:"-"`)
 }

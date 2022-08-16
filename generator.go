@@ -62,6 +62,9 @@ func GenerateCode(pkgName string, importInfos []ImportInfo, structInfos []Struct
 		params := []string{}
 		fields := []string{}
 		for _, field := range structInfo.Fields {
+			if field.Skipped {
+				continue
+			}
 			params = append(params, fmt.Sprintf("%v %v", toLowerCamel(field.Name), field.Type))
 			fields = append(fields, fmt.Sprintf("%v: %v,", field.Name, toLowerCamel(field.Name)))
 		}

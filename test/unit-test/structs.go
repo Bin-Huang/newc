@@ -31,3 +31,14 @@ type StructValueWithInit struct {
 func (s *StructValueWithInit) init() {
 	s.Debug = true
 }
+
+// Skipeed ...
+//go:generate go run ../../../newc --value --init
+type Skipeed struct {
+	Msg    string `bson:"msg" json:"msg"`
+	Status int    `bson:"status" json:"status" newc:"-"`
+}
+
+func (e *Skipeed) init() {
+	e.Status = 403
+}

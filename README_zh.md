@@ -49,13 +49,13 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 无需手动安装，只需要给结构体添加下面这行注释就行。Go 会在缺失时自动下载这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.2
+//go:generate go run github.com/Bin-Huang/newc@v0.8.3
 ```
 
 比如这样：
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.2
+//go:generate go run github.com/Bin-Huang/newc@v0.8.3
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -65,7 +65,7 @@ type UserService struct {
 
 这个方式非常有用，尤其在团队开发中。**就算其他同事没有安装这个工具，这么做也能正常运行，不会影响到其他人的工作**。
 
-## 返回结构体的值，而不是引用
+## 如何返回结构体的值，而不是引用？
 
 使用 `--value` 参数
 
@@ -123,6 +123,28 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 }
 ```
 
+## 如果在生成构造器时忽略掉一些字段？
+
+给需要忽略的字段添加 `newc:"-"` 标签
+
+```go
+type Forbidden struct {
+	Msg    string
+	Status int    `newc:"-"`
+}
+```
+
+生成代码：
+
+```go
+// NewForbidden Create a new Forbidden
+func NewForbidden(msg string) *Forbidden {
+	return &Forbidden{
+		Msg: msg,
+	}
+}
+```
+
 ## 如果你觉得这条注释太长……
 
 一些建议：
@@ -147,7 +169,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 就算其他同事没有安装这个工具，这么做也不会影响到他们的工作。因为 Go 会在必要时自动安装这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/newc@v0.8.2
+//go:generate go run github.com/Bin-Huang/newc@v0.8.3
 ```
 
 ## 赞赏
