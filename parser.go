@@ -168,7 +168,12 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 // isMakeComment ...
 func isMakeComment(s string) bool {
 	s = strings.TrimSpace(s)
-	return strings.HasPrefix(s, "//go:generate") && strings.Contains(s, "newc")
+	if !strings.HasPrefix(s, "//go:generate") {
+		return false
+	}
+	s = strings.TrimLeft(s, "//go:generate")
+	s = strings.TrimSpace(s)
+	return strings.HasPrefix(s, "newc ")
 }
 
 // isInitModeEnable check if this struct enable the init mode
