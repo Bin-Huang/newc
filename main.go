@@ -11,10 +11,10 @@ import (
 func main() {
 	err := makeConstructor()
 	if err != nil {
-		fmt.Printf("make-constructor: [ERROR] %v\n", err)
+		fmt.Printf("newc: [ERROR] %v\n", err)
 		fmt.Printf("It seems like there is some trouble here. Try this:\n")
-		fmt.Printf("\t1. Check and upgrade this tool (https://github.com/Bin-Huang/make-constructor)\n")
-		fmt.Printf("\t2. Submit an issue on Github (https://github.com/Bin-Huang/make-constructor/issues)\n")
+		fmt.Printf("\t1. Check and upgrade this tool (https://github.com/Bin-Huang/newc)\n")
+		fmt.Printf("\t2. Submit an issue on Github (https://github.com/Bin-Huang/newc/issues)\n")
 		os.Exit(1)
 	}
 }
@@ -63,7 +63,7 @@ func makeConstructor() error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("make-constructor: [INFO] wrote %v\n", genFilename)
+	fmt.Printf("newc: [INFO] wrote %v\n", genFilename)
 	return nil
 }
 

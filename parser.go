@@ -32,7 +32,7 @@ func GetPackageInfo(dir string) (*packages.Package, error) {
 	return pkgs[0], nil
 }
 
-// IncludeMakeMark check whether a code file contains "make-constructor" comment
+// IncludeMakeMark check whether a code file contains "newc" comment
 func IncludeMakeMark(filepath string) (bool, error) {
 	file, err := os.Open(filepath)
 	if err != nil {
@@ -168,7 +168,7 @@ func ParseCodeFile(filename string) ([]StructInfo, []ImportInfo, error) {
 // isMakeComment ...
 func isMakeComment(s string) bool {
 	s = strings.TrimSpace(s)
-	return strings.HasPrefix(s, "//go:generate") && strings.Contains(s, "make-constructor")
+	return strings.HasPrefix(s, "//go:generate") && strings.Contains(s, "newc")
 }
 
 // isInitModeEnable check if this struct enable the init mode

@@ -1,4 +1,4 @@
-# make-constructor
+# newc
 
 Doc: **English** | [中文](README_zh.md)
 
@@ -9,7 +9,7 @@ A cli tool to generate constructor code for a Golang struct.
 ## Installation
 
 ```bash
-go install github.com/Bin-Huang/make-constructor@latest
+go install github.com/Bin-Huang/newc@latest
 ```
 
 ## Usage
@@ -17,13 +17,13 @@ go install github.com/Bin-Huang/make-constructor@latest
 Add a `go:generate` command line to the struct which you want to generate a constructor.
 
 ```go
-//go:generate make-constructor
+//go:generate newc
 ```
 
 For example:
 
 ```go
-//go:generate make-constructor
+//go:generate newc
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -46,7 +46,7 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 }
 ```
 
-See [more examples here](https://github.com/Bin-Huang/make-constructor/tree/master/test)
+See [more examples here](https://github.com/Bin-Huang/newc/tree/master/test)
 
 ## Usage without manual installation
 
@@ -55,13 +55,13 @@ See [more examples here](https://github.com/Bin-Huang/make-constructor/tree/mast
 Without manual installation, just add this comment line to the struct. Go will automatically install this tool if missing.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
+//go:generate go run github.com/Bin-Huang/newc@v0.8.0
 ```
 
 For example:
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
+//go:generate go run github.com/Bin-Huang/newc@v0.8.0
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -77,7 +77,7 @@ This is very useful, especially in teamwork. **It can run without manual install
 2. Write an `init` method for the struct
 
 ```go
-//go:generate make-constructor --init
+//go:generate newc --init
 type Controller struct {
 	logger *zap.Logger
 	debug  bool
@@ -129,7 +129,7 @@ Don't worry about the imports, variable naming, and code style in the generated 
 It doesn't break the work of other people who don't have installed this tool in collaboration. Go will automatically install this tool if missing.
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
+//go:generate go run github.com/Bin-Huang/newc@v0.8.0
 ```
 
 ## Sponsoring

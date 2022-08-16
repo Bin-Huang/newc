@@ -3,11 +3,11 @@ package services
 import (
 	"log"
 
-	"github.com/Bin-Huang/make-constructor/test/repositories"
+	"github.com/Bin-Huang/newc/test/repositories"
 )
 
 // UserService a user service for example
-//go:generate go run ../../../make-constructor
+//go:generate go run ../../../newc
 type UserService struct {
 	baseService
 

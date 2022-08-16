@@ -1,4 +1,4 @@
-module github.com/Bin-Huang/make-constructor
+module github.com/Bin-Huang/newc
 
 go 1.18
 

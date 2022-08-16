@@ -1,12 +1,12 @@
 package repositories
 
 import (
-	"github.com/Bin-Huang/make-constructor/test/config"
-	"github.com/Bin-Huang/make-constructor/test/pkg/errors"
+	"github.com/Bin-Huang/newc/test/config"
+	"github.com/Bin-Huang/newc/test/pkg/errors"
 )
 
 // ProRepository a repository for example
-//go:generate go run ../../../make-constructor
+//go:generate go run ../../../newc
 type ProRepository struct {
 	conf      config.Config
 	db        *database

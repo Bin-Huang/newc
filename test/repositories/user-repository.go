@@ -3,11 +3,11 @@ package repositories
 import (
 	"errors"
 
-	config2 "github.com/Bin-Huang/make-constructor/test/config2"
+	config2 "github.com/Bin-Huang/newc/test/config2"
 )
 
 // UserRepository the user repository for example
-//go:generate go run ../../../make-constructor --init
+//go:generate go run ../../../newc --init
 type UserRepository struct {
 	conf      *config2.Config
 	db        *database

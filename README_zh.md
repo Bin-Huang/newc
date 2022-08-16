@@ -1,4 +1,4 @@
-# make-constructor
+# newc
 
 Doc: [English](README.md) | **中文**
 
@@ -9,7 +9,7 @@ Doc: [English](README.md) | **中文**
 ## 安装
 
 ```bash
-go install github.com/Bin-Huang/make-constructor@latest
+go install github.com/Bin-Huang/newc@latest
 ```
 
 ## 使用方法
@@ -17,13 +17,13 @@ go install github.com/Bin-Huang/make-constructor@latest
 在需要生成构造器的结构体上添加一行 `go:generate` 注释。
 
 ```go
-//go:generate make-constructor
+//go:generate newc
 ```
 
 比如这样：
 
 ```go
-//go:generate make-constructor
+//go:generate newc
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -46,7 +46,7 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 }
 ```
 
-这里可以[查看更多例子](https://github.com/Bin-Huang/make-constructor/tree/master/test)
+这里可以[查看更多例子](https://github.com/Bin-Huang/newc/tree/master/test)
 
 ## 使用方式2（无需手动安装）
 
@@ -55,13 +55,13 @@ func NewUserService(baseService baseService, userRepository *repositories.UserRe
 无需手动安装，只需要给结构体添加下面这行注释就行。Go 会在缺失时自动下载这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
+//go:generate go run github.com/Bin-Huang/newc@v0.8.0
 ```
 
 比如这样：
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
+//go:generate go run github.com/Bin-Huang/newc@v0.8.0
 type UserService struct {
 	baseService
 	userRepository *repositories.UserRepository
@@ -77,7 +77,7 @@ type UserService struct {
 2. 为结构体实现一个 `init` 方法
 
 ```go
-//go:generate make-constructor --init
+//go:generate newc --init
 type Controller struct {
 	logger *zap.Logger
 	debug  bool
@@ -118,7 +118,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 
 不管是编写还是更新构造器代码，都是一个费力且容易出错的事情，尤其当代码量很大的时候。这些繁琐易错的工作应该交给自动程序来完成，比如这个工具。
 
-同时，这个工具还能完美兼容像[**wire**](https://github.com/google/wire)这种依赖注入工具。如果你的项目中也使用了 **wire**，那你可能非常需要这个工具。**wire** 在 **make-constructor** 的“加持”下会变得更加好用。
+同时，这个工具还能完美兼容像[**wire**](https://github.com/google/wire)这种依赖注入工具。如果你的项目中也使用了 **wire**，那你可能非常需要这个工具。**wire** 在 **newc** 的“加持”下会变得更加好用。
 
 **2. 你不需要担心自动生成的代码**.
 
@@ -129,7 +129,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 就算其他同事没有安装这个工具，这么做也不会影响到他们的工作。因为 Go 会在必要时自动安装这个工具。
 
 ```go
-//go:generate go run github.com/Bin-Huang/make-constructor@v0.7.4
+//go:generate go run github.com/Bin-Huang/newc@v0.8.0
 ```
 
 ## 赞赏
