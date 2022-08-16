@@ -89,7 +89,7 @@ func NewConfig(debug bool) Config {
 }
 ```
 
-## 想在构造时做些初始化?
+## 如何在构造器中做初始化操作?
 
 1. 加上 `--init` 参数
 2. 为结构体实现一个 `init` 方法
@@ -123,7 +123,7 @@ func NewController(logger *zap.Logger, debug bool) *Controller {
 }
 ```
 
-## 如果在生成构造器时忽略掉一些字段？
+## 如何在生成构造器时忽略掉一些字段？
 
 给需要忽略的字段添加 `newc:"-"` 标签
 
