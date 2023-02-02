@@ -6,7 +6,7 @@ Doc: **English** | [中文](README_zh.md)
 
 ----------
 
-A cli tool to generate constructor code for a Golang struct.
+A code generator that generates constructor code for Golang structures.
 
 ## Installation
 
